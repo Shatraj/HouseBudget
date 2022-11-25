@@ -1,0 +1,153 @@
+﻿@page "/Concrete"
+@using HouseBudget.Data
+@inject HouseBudgetService2 houseBudgetService2
+
+<h3>Concrete</h3>
+
+
+
+
+
+
+<form class="mt-5">
+
+
+<div class="row">
+
+       <div class="col">
+        <label class="control-label"> Id </label>
+        <input class="form-control" @bind="@newEntry2.Id" />
+    </div>
+
+    <div class="col">
+        <label class="control-label"> Description </label>
+        <input class="form-control" @bind="@newEntry2.Description" />
+    </div>
+
+     <div class="col">
+        <label class="control-label"> Unit </label>
+        <input class="form-control" @bind="@newEntry2.Unit" />
+    </div>
+
+     <div class="col">
+        <label class="control-label"> Quantity </label>
+        <input class="form-control" @bind="@newEntry2.Quantity" />
+    </div>
+
+     <div class="col">
+        <label class="control-label"> Price </label>
+        <input class="form-control" @bind="@newEntry2.Price" />
+    </div>
+
+      <div class="col">
+        <label class="control-label"> Date </label>
+        <input class="form-control" @bind="@newEntry2.Date" />
+    </div>
+
+</div>
+<br/><br/>
+<div class="row mt-2">
+    <div class="col">
+        <Button class="btn btn-primary btn-lg" onclick="@CreateEntry2"> Add </Button>
+    </div>
+
+    <br/>
+
+</div>
+</form>
+
+<hr/>
+
+<table class ="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+
+             <th>
+                Id
+            </th>
+            
+            <th>
+                Description
+            </th>
+
+            <th>
+               Unit
+            </th>
+
+            <th>
+                Quantity
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Date
+            </th>
+        </tr>
+        
+                    </thead>
+
+        <tbody>
+            @foreach(Entry2 entry2 in allEntries2)
+            {
+                <tr>
+                     <td>
+                        @entry2.Id
+                    </td>
+
+                    <td>
+                        @entry2.Description
+                    </td>
+                    <td>
+                        @entry2.Unit
+                    </td>
+                    <td>
+                        @entry2.Quantity
+                    </td>
+                    <td>
+                        @entry2.Price
+                    </td>
+                    <td>
+                        @entry2.Date
+                    </td>
+                </tr>
+            }
+        </tbody>
+    
+</table>
+<br/><br/>
+<div class="text-black san">
+
+ <h2 class="san"> Total Quantity =  @allEntries2.Sum(i=>i.Quantity) </h2>
+   
+
+
+ <h2 class="san1"> Total Price =   @allEntries2.Sum(i=>i.Price) $ </h2>
+ </div>
+
+
+
+
+
+
+@code {
+
+    List<Entry2> allEntries2 = new List<Entry2>();
+
+    Entry2 newEntry2 = new Entry2();
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        allEntries2 = await houseBudgetService2.GetAllEntries2();
+
+    }
+    protected async void CreateEntry2()
+    {
+        await houseBudgetService2.AddEntry2(newEntry2);
+    }
+
+ 
+
+}
+

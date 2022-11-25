@@ -1,0 +1,53 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">HouseBudget</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="Index">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" @onclick="()=>explandSubMenu= !explandSubMenu">
+                <span class="oi oi-plus" aria-hidden="true"></span> Month
+            </NavLink>
+            @if (explandSubMenu)
+            {
+               <NavLink class="nav-link" href="March">
+                <span class="oi oi-file" aria-hidden="true"></span> March
+            </NavLink>
+            
+             <NavLink class="nav-link" href="April">
+                <span class="oi oi-file" aria-hidden="true"></span> April
+            </NavLink>
+            <NavLink class="nav-link" href="May">
+                <span class="oi oi-file" aria-hidden="true"></span> May
+            </NavLink>
+             <NavLink class="nav-link" href="Jun">
+                <span class="oi oi-file" aria-hidden="true"></span> Jun
+            </NavLink>
+            }
+        </div>
+    
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private bool explandSubMenu;
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
